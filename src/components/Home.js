@@ -7,12 +7,15 @@ class Home extends Component {
   state = {}
   render() {
     return (
-      <nav className='nav-wrapper'>
-        <div className='container'>Check Weathur</div>
-        <br />
-        <Location />
-        {/* <Weather /> */}
-      </nav>
+      <div>
+        <nav className='nav-wrapper'>
+          <div className='container'>Check Weathur</div>
+          <br />
+        </nav>
+        <div>
+          <Location />
+        </div>
+      </div>
     )
   }
 }
