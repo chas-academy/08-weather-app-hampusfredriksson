@@ -25,7 +25,7 @@ class App extends Component {
         )
         .then(res => {
           this.setState({
-            currentWeather: res.data,
+            currentWeather: res.data.name,
             description: res.data.weather[0].description,
             currentTemp: res.data.main.temp,
             humidity: res.data.main.humidity
@@ -37,7 +37,6 @@ class App extends Component {
 
   render() {
     return (
-      // {currentWeather.data.name}
       <div>
         <Navbar />
         <Location
@@ -47,7 +46,7 @@ class App extends Component {
           humidity={this.state.humidity}
           // windSpeed={this.state.wind.speed}
         />
-        <Forecast />
+        <Forecast name={this.state.fiveForecast} />
       </div>
     )
   }

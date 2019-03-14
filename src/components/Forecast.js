@@ -2,65 +2,59 @@ import React, { Component } from 'react'
 import axios from 'axios'
 
 export default class forecast extends Component {
-  state = {}
+  state = {
+    fiveForecast: []
+  }
 
   componentDidMount = () => {
     navigator.geolocation.getCurrentPosition(position => {
       axios
-
         .get(
-          `https://api.darksky.net/forecast/7cb310467ebebddaa6546a3bbf3b2451/${
+          // `https://api.darksky.net/forecast/7cb310467ebebddaa6546a3bbf3b2451/${
+          //   position.coords.latitude
+          // },${position.coords.longitude}`
+          `https://api.openweathermap.org/data/2.5/forecast?lat=${
             position.coords.latitude
-          },${position.coords.longitude}`
+          }&lon=${
+            position.coords.longitude
+          }&APPID=12b7b1ce713412cd5dee7735c485b9d5&units=metric`
         )
         .then(res => {
-          // let weatherControll = res.data.list.filter(data => {
-          //   let weatherDuringDay = ['12', '15', '18']
-          //   // data.map(day => {
-          //   //   console.log(data)
-          //   // })
-          //   if (weatherDuringDay.includes(data.dt_txt.substring(11, 13))) {
-          //     return data
-          //   }
-          // })
-          console.log(res)
+          // console.log(res)
+          let forecastFiver = []
+          for (let i = 0; i < res.data.list.length; i += 8) {
+            const data = {
+              dataName: res.data.list[i].dt_txt,
+              description: res.data.list[i].weather[0].description,
+              temp: res.data.list[i].main.temp
+            }
+
+            forecastFiver.push(data)
+          }
 
           this.setState({
-            currentCity: res.data.city.name,
-            currentWeather: res.data.list[0].weather[0].description,
-            currentTemp: res.data.list[0].main.temp,
-            currentTempMin: res.data.list[0].main.temp_min,
-            currentTempMax: res.data.list[0].main.temp_max,
-            currentClouds: res.data.list[0].wind.speed,
-            currentIcon: res.data.list[0].weather[0].icon
+            fiveForecast: forecastFiver
           })
+          // console.log(this.state.fiveForecast[0].dataName)
+          // console.log(this.state.fiveForecast[0].description)
+          // console.log(this.state.fiveForecast[0].temp)
         })
     })
   }
   render() {
+    const fiveDaily = this.state.fiveForecast.map(daily => {
+      return (
+        <div>
+          <h3>{daily.dataName}</h3>
+          <h3>{daily.description}</h3>
+          <h3>{daily.temp}</h3>
+        </div>
+      )
+    })
     return (
-      <div className="location">
-        <button
-          type="button"
-          className="btn btn-primary"
-          onClick={this.getLocation}>
-          WHERE YOU AT BOI
-        </button>
-        {
-          <div className="currentLocation">
-            {/* <img src={dynIcon} /> */}
-            <p>City: {this.state.currentCity}</p>
-            <p>Current weather: {this.state.currentWeather}</p>
-            <p>Temperature: {this.state.currentTemp}°C</p>
-            <p>
-              High/Low: {this.state.currentTempMax} /{' '}
-              {this.state.currentTempMin}°C
-            </p>
-            <p>Finally, this windy: {this.state.currentClouds} km/h</p>
-
-            {/* <div className='weeklyForecast' key={forecastDay.time} /> */}
-          </div>
-        }
+      <div className="forecast">
+        <p>//test </p>
+        {fiveDaily}
       </div>
     )
   }
