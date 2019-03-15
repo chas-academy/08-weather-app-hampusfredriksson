@@ -3,11 +3,11 @@ import React, { Component } from 'react'
 class Location extends Component {
   render() {
     return (
-      <div className="currentLocation">
-        <p>{this.props.res}</p>
-        <p>{this.props.description}</p>
-        <p>{this.props.currentTemp} C</p>
-        <p>{this.props.humidity}%</p>
+      <div className="weatherInfo">
+        <h4>{this.props.name}</h4>
+        <p>Currently: {this.props.description}</p>
+        <p>Temperature: {this.props.currentTemp}°c</p>
+        <p>Humidity: {this.props.humidity}%</p>
 
         {/* Den här vill jag ska komma från Forecast.js?!?! 
          

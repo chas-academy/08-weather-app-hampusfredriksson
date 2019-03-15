@@ -3,16 +3,14 @@ import axios from 'axios'
 
 export default class forecast extends Component {
   state = {
-    fiveForecast: []
+    fiveForecast: [],
+    forecastDaily: []
   }
 
   componentDidMount = () => {
     navigator.geolocation.getCurrentPosition(position => {
       axios
         .get(
-          // `https://api.darksky.net/forecast/7cb310467ebebddaa6546a3bbf3b2451/${
-          //   position.coords.latitude
-          // },${position.coords.longitude}`
           `https://api.openweathermap.org/data/2.5/forecast?lat=${
             position.coords.latitude
           }&lon=${
@@ -21,39 +19,58 @@ export default class forecast extends Component {
         )
         .then(res => {
           // console.log(res)
+          let dailyForecast = []
+          for (let i = 0; i < 9; i++) {
+            const oneData = {
+              description: res.data.list[i].weather[0].description,
+              time: res.data.list[i].dt_txt,
+              temp: res.data.list[i].main.temp
+            }
+            dailyForecast.push(oneData)
+          }
           let forecastFiver = []
           for (let i = 0; i < res.data.list.length; i += 8) {
             const data = {
-              dataName: res.data.list[i].dt_txt,
               description: res.data.list[i].weather[0].description,
-              temp: res.data.list[i].main.temp
+              temp: res.data.list[i].main.temp,
+              time: res.data.list[i].dt
             }
+            // console.log(data.temp)
 
             forecastFiver.push(data)
           }
 
           this.setState({
-            fiveForecast: forecastFiver
+            fiveForecast: forecastFiver,
+            forecastDaily: dailyForecast
           })
-          // console.log(this.state.fiveForecast[0].dataName)
-          // console.log(this.state.fiveForecast[0].description)
-          // console.log(this.state.fiveForecast[0].temp)
+          // console.log(this.state.fiveForecast[1])
         })
     })
   }
   render() {
-    const fiveDaily = this.state.fiveForecast.map(daily => {
+    const oneDaily = this.state.forecastDaily.map(data => {
       return (
-        <div>
-          <h3>{daily.dataName}</h3>
-          <h3>{daily.description}</h3>
-          <h3>{daily.temp}</h3>
+        <div className="oneDaily">
+          <p>{data.time}</p>
+          <p>Currently: {data.description}</p>
+          <p>Temperature: {data.temp}°c</p>
+        </div>
+      )
+    })
+    const fiveDaily = this.state.fiveForecast.map(data => {
+      return (
+        <div className="dailyWeather">
+          <p>Day: {data.time}</p>
+          <p>Currently: {data.description}</p>
+          <p>Temperature: {data.temp}°c</p>
         </div>
       )
     })
     return (
-      <div className="forecast">
-        <p>//test </p>
+      <div className="weatherInfo daily">
+        {oneDaily}
+        <div className="weatherInfo forecast" />
         {fiveDaily}
       </div>
     )
