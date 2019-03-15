@@ -1,5 +1,6 @@
-import React, { Component } from 'react'
-import axios from 'axios'
+import React, { Component } from "react"
+import axios from "axios"
+import WeatherIcon from "react-icons-weather"
 
 export default class forecast extends Component {
   state = {
@@ -53,7 +54,6 @@ export default class forecast extends Component {
       // console.log(this.state.fiveForecast[1])
     })
   }
-
   getDaily = (item, index) => index < 9
   getWeekly = (item, index) => index % 8 === 0
 
@@ -71,13 +71,13 @@ export default class forecast extends Component {
 */
 
     let daily = list.filter(this.getDaily).map(item => {
-      let timeByHour = new Date(item.dt_txt).toLocaleTimeString('sv-SE')
+      let timeByHour = new Date(item.dt_txt).toLocaleTimeString("sv-SE")
 
       return {
         description: item.weather[0].description,
         temp: item.main.temp,
         time: timeByHour,
-        icon: item.weather[0].icon
+        icon: item.weather[0].id
       }
     })
 
@@ -88,7 +88,7 @@ export default class forecast extends Component {
         description: item.weather[0].description,
         temp: item.main.temp,
         time: date,
-        icon: item.weather[0].icon
+        icon: item.weather[0].id
       }
     })
 
@@ -105,7 +105,16 @@ export default class forecast extends Component {
       return (
         <div className="weatherInfo" key={data.dt}>
           <p>{data.time}</p>
-          <p>Currently: {data.description}</p>
+          <p>{data.description}</p>
+          <div>
+            <WeatherIcon
+              className="owm"
+              name="owm"
+              iconId={data.icon}
+              flip="horizontal"
+              rotate="90"
+            />
+          </div>
           <p>Temperature: {data.temp}°c</p>
         </div>
       )
@@ -114,7 +123,16 @@ export default class forecast extends Component {
       return (
         <div className="fiveForecast" key={data.dt}>
           <p>{data.time}</p>
-          <p>Currently: {data.description}</p>
+          <p>{data.description}</p>
+          <div>
+            <WeatherIcon
+              className="owm"
+              name="owm"
+              iconId={data.icon}
+              flip="horizontal"
+              rotate="90"
+            />
+          </div>
           <p>Temperature: {data.temp}°c</p>
         </div>
       )
