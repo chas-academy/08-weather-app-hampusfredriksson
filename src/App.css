@@ -1,7 +1,7 @@
 body {
   margin: 0;
-  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Oxygen',
-    'Ubuntu', 'Cantarell', 'Fira Sans', 'Droid Sans', 'Helvetica Neue',
+  font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", "Roboto", "Oxygen",
+    "Ubuntu", "Cantarell", "Fira Sans", "Droid Sans", "Helvetica Neue",
     sans-serif;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
@@ -18,41 +18,50 @@ body {
 }
 
 .weatherInfo {
-  background-color: whitesmoke;
+  background-color: papayawhip;
   box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.5);
   text-align: center;
-  padding: 2px;
-  margin: 20px;
-  transition: 0.2s;
-  width: 30%;
-  border-radius: 5px;
-}
-
-.weatherInfo {
-  background-color: whitesmoke;
-  box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.5);
-  text-align: center;
+  display: -webkit-flex;
   display: flex;
+  -webkit-flex-direction: column;
   flex-direction: column;
   padding: 2px;
   margin: 20px;
   transition: 0.2s;
   border-radius: 5px;
+  width: 30%;
 }
 
-.weatherInfo:hover {
+.fiveForecast {
+  background-color: peachpuff;
+  box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.5);
+  text-align: center;
+  display: -webkit-flex;
+  display: flex;
+  -webkit-flex-direction: column;
+  flex-direction: column;
+  padding: 2px;
+  margin: 20px;
+  transition: 0.2s;
+  border-radius: 5px;
+  width: 30%;
+}
+
+.weatherInfo,
+.fiveForecast:hover {
   box-shadow: 0 8px 16px 0 rgba(0, 0, 0, 0.7);
 }
 
-.weatherInfo-forecast:hover {
-  box-shadow: 0 8px 16px 0 rgba(0, 0, 0, 0.7);
+.oneDaily {
+  display: flex;
+  flex-direction: row;
 }
 
-.btn btn-primary {
-  border-radius: 15px;
-  padding: 10px;
+.forecast {
+  display: flex;
+  flex-direction: row;
 }
 
-.dailyWeather {
-  background-color: papayawhip;
+.owm {
+  font-size: 60px;
 }
