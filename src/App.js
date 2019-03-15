@@ -4,6 +4,7 @@ import './App.css'
 import Location from './components/Location'
 import Navbar from './components/Navbar'
 import Forecast from './components/Forecast'
+import 'materialize-css/dist/css/materialize.min.css'
 
 class App extends Component {
   state = {
@@ -25,12 +26,12 @@ class App extends Component {
         )
         .then(res => {
           this.setState({
-            currentWeather: res.data.name,
+            name: res.data.name,
             description: res.data.weather[0].description,
             currentTemp: res.data.main.temp,
             humidity: res.data.main.humidity
-            // windSpeed: res.data.wind.speed
           })
+          // console.log(res)
         })
     })
   }
@@ -40,11 +41,10 @@ class App extends Component {
       <div>
         <Navbar />
         <Location
-          res={this.state.currentWeather}
+          name={this.state.name}
           description={this.state.description}
           currentTemp={this.state.currentTemp}
           humidity={this.state.humidity}
-          // windSpeed={this.state.wind.speed}
         />
         <Forecast name={this.state.fiveForecast} />
       </div>
