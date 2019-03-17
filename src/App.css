@@ -25,9 +25,9 @@ body {
   display: flex;
   -webkit-flex-direction: column;
   flex-direction: column;
-  padding: 2px;
+  padding: 1%;
   flex-wrap: wrap;
-  margin: 20px;
+  margin: 1%;
   transition: 0.2s;
   border-radius: 5px;
   width: 30%;
@@ -41,16 +41,19 @@ body {
   display: flex;
   -webkit-flex-direction: column;
   flex-direction: column;
-  padding: 2px;
-  margin: 20px;
+  padding: 1%;
+  margin: 1%;
   transition: 0.2s;
   border-radius: 5px;
   width: 30%;
   flex-wrap: wrap;
 }
 
-.weatherInfo,
 .fiveForecast:hover {
+  box-shadow: 0 8px 16px 0 rgba(0, 0, 0, 0.7);
+}
+
+.weatherInfo:hover {
   box-shadow: 0 8px 16px 0 rgba(0, 0, 0, 0.7);
 }
 
@@ -70,10 +73,12 @@ body {
   font-size: 60px;
 }
 
-@media only screen and (max-width: 600) {
+@media only screen and (max-width: 600px) {
   .weatherInfo,
-  .oneDaily,
-  .forecast {
-    width: 10%;
+  .fiveForecast {
+    flex-direction: column;
+    flex-wrap: wrap;
+    display: flex;
+    width: 100%;
   }
 }
