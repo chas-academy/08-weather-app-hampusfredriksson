@@ -1,6 +1,6 @@
-import React, { Component } from "react"
-import axios from "axios"
-import WeatherIcon from "react-icons-weather"
+import React, { Component } from 'react'
+import axios from 'axios'
+import WeatherIcon from 'react-icons-weather'
 
 export default class forecast extends Component {
   state = {
@@ -19,39 +19,6 @@ export default class forecast extends Component {
           }&APPID=12b7b1ce713412cd5dee7735c485b9d5&units=metric`
         )
         .then(res => this.formatData(res))
-
-      // console.log(daily)
-
-      // let dailyForecast = []
-      // for (let i = 0; i < 9; i++) {
-      //   const oneData = {
-      //     description: res.data.list[i].weather[0].description,
-      //     time: res.data.list[i].dt_txt,
-      //     temp: res.data.list[i].main.temp
-      //   }
-      //   dailyForecast.push(oneData)
-      // }
-
-      // let forecastFiver = []
-      // for (let i = 0; i < res.data.list.length; i += 8) {
-      //   let time = new Date(res.data.list[i].dt * 1000).toDateString()
-
-      //   const data = {
-      //     description: res.data.list[i].weather[0].description,
-      //     temp: res.data.list[i].main.temp,
-      //     time: time
-      //   }
-
-      //   console.log(res)
-
-      //   forecastFiver.push(data)
-      // }
-
-      // this.setState({
-      //   fiveForecast: forecastFiver,
-      //   forecastDaily: dailyForecast
-      // })
-      // console.log(this.state.fiveForecast[1])
     })
   }
   getDaily = (item, index) => index < 9
@@ -59,19 +26,9 @@ export default class forecast extends Component {
 
   formatData(res) {
     const { list } = res.data
-    /*
-    function generateFilterFunction(operator, index) {
-      return function(operator, index) {
-        return `${index} ${operator}`
-      }
-    }
-
-    const dailyFn = generateFilterFunction('>', 8)
-    const weeklyFn = generateFilterFunction('%', 8)
-*/
 
     let daily = list.filter(this.getDaily).map(item => {
-      let timeByHour = new Date(item.dt_txt).toLocaleTimeString("sv-SE")
+      let timeByHour = new Date(item.dt_txt).toLocaleTimeString('sv-SE')
 
       return {
         description: item.weather[0].description,
@@ -115,7 +72,9 @@ export default class forecast extends Component {
               rotate="90"
             />
           </div>
-          <p>Temperature: {data.temp}°c</p>
+          <p>
+            Temperature: {data.temp.toFixed()}℃ <br />
+          </p>
         </div>
       )
     })
@@ -133,7 +92,9 @@ export default class forecast extends Component {
               rotate="90"
             />
           </div>
-          <p>Temperature: {data.temp}°c</p>
+          <p>
+            Temperature: {data.temp.toFixed()}℃ <br />
+          </p>
         </div>
       )
     })
