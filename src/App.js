@@ -10,6 +10,8 @@ class App extends Component {
     super()
 
     this.state = {
+      lat: null,
+      long: null,
       currentWeather: [],
       description: [],
       currentTemp: [],
@@ -21,34 +23,46 @@ class App extends Component {
   }
 
   componentDidMount = () => {
-    navigator.geolocation.getCurrentPosition(position => {
-      axios
-        .get(
-          `https://api.openweathermap.org/data/2.5/weather?lat=${
-            position.coords.latitude
-          }&lon=${
-            position.coords.longitude
-          }&APPID=12b7b1ce713412cd5dee7735c485b9d5&units=metric`
-        )
-        .then(res => {
-          let sunrise = new Date(
-            res.data.sys.sunrise * 1000
-          ).toLocaleTimeString('sv-SE')
-          let sunset = new Date(res.data.sys.sunset * 1000).toLocaleTimeString(
-            'sv-SE'
+    navigator.geolocation.getCurrentPosition(
+      position => {
+        this.state = {
+          lat: position.coords.latitude,
+          long: position.coords.longitude
+        }
+        axios
+          .get(
+            `https://api.openweathermap.org/data/2.5/weather?lat=${
+              this.state.lat
+            }&lon=${
+              this.state.long
+            }&APPID=12b7b1ce713412cd5dee7735c485b9d5&units=metric`
           )
-          this.setState({
-            name: res.data.name,
-            description: res.data.weather[0].description,
-            currentTemp: res.data.main.temp,
-            humidity: res.data.main.humidity,
-            windy: res.data.wind.speed,
-            sunrise: sunrise,
-            sunset: sunset,
-            icon: res.data.weather[0].id
+          .then(res => {
+            let sunrise = new Date(
+              res.data.sys.sunrise * 1000
+            ).toLocaleTimeString('sv-SE')
+            let sunset = new Date(
+              res.data.sys.sunset * 1000
+            ).toLocaleTimeString('sv-SE')
+            this.setState({
+              name: res.data.name,
+              description: res.data.weather[0].description,
+              currentTemp: res.data.main.temp,
+              humidity: res.data.main.humidity,
+              windy: res.data.wind.speed,
+              sunrise: sunrise,
+              sunset: sunset,
+              icon: res.data.weather[0].id
+            })
           })
-        })
-    })
+      },
+      function(error) {
+        if (error.code === error.PERMISSION_DENIED)
+          alert(
+            'You denied Geolocation, therefore no weather will be displayed.'
+          )
+      }
+    )
   }
 
   changeScale = () => {
