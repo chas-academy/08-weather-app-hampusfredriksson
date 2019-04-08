@@ -1,5 +1,4 @@
-https://08-weather-app-hampusfredriksson-eoeupmifq.now.sh/
-
+https://weather.hampus.app
 
 This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
 

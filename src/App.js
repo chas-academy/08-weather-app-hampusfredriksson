@@ -25,16 +25,12 @@ class App extends Component {
   componentDidMount = () => {
     navigator.geolocation.getCurrentPosition(
       position => {
-        this.state = {
-          lat: position.coords.latitude,
-          long: position.coords.longitude
-        }
         axios
           .get(
             `https://api.openweathermap.org/data/2.5/weather?lat=${
-              this.state.lat
+              position.coords.latitude
             }&lon=${
-              this.state.long
+              position.coords.longitude
             }&APPID=12b7b1ce713412cd5dee7735c485b9d5&units=metric`
           )
           .then(res => {

@@ -1,6 +1,6 @@
 {
   "version": 2,
-  "name": "08-weather-app-hampusfredriksson",
+  "name": "weatherapp",
   "builds": [
     {
       "src": "package.json",
